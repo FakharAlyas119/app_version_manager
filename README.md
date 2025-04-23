@@ -67,11 +67,11 @@ dependencies:
 Run these commands from your Flutter project directory:
 
 ```bash
-version_bump major   # → Increments major version (1.0.0 → 2.0.0)
-version_bump minor   # → Increments minor version (1.2.0 → 1.3.0)
-version_bump patch   # → Increments patch version (1.2.3 → 1.2.4)
-version_bump build   # → Increments build number (1.2.3+4 → 1.2.3+5)
-version_bump bump    # → Smart increment (based on store guidelines)
+flutter pub run app_version_manager:version_manager major
+flutter pub run app_version_manager:version_manager minor
+flutter pub run app_version_manager:version_manager patch
+flutter pub run app_version_manager:version_manager build
+flutter pub run app_version_manager:version_manager bump
 ```
 
 ---
@@ -100,19 +100,9 @@ MAJOR.MINOR.PATCH+BUILD
 
 ---
 
-## 🔍 Examples
 
-```bash
-# Current: 1.16.23+244
 
-version_bump major   # → 2.0.0+245
-version_bump minor   # → 1.17.0+245
-version_bump patch   # → 1.16.24+245
-version_bump build   # → 1.16.23+245
-version_bump bump    # → 1.16.24+245 (smart bump)
-```
 
----
 
 ## ⚙️ How It Works
 

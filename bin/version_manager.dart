@@ -2,21 +2,6 @@ import 'dart:io';
 
 import 'package:app_version_manager/version_manager.dart';
 
-/// Version Manager CLI
-///
-/// A command-line tool for managing version numbers in Flutter applications.
-/// This tool follows semantic versioning principles and handles both
-/// App Store and Play Store versioning conventions.
-///
-/// Usage:
-///   dart bin/app_version_manager.dart <command>
-///
-/// Commands:
-///   major - Increments the major version (X.0.0+build)
-///   minor - Increments the minor version (x.X.0+build)
-///   patch - Increments the patch version (x.x.X+build)
-///   build - Increments only the build number (x.x.x+X)
-///   bump  - Alias for patch increment
 void main(List<String> args) {
   final logger = _Logger();
 
