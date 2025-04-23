@@ -123,5 +123,5 @@ Pull requests are welcome! For major changes, please open an issue first to disc
 
 ## 💬 Support
 
-If you find this useful, ⭐️ the repo or [open an issue](https://github.com/yourusername/app_version_manager/issues) for feature requests or bugs.
+If you find this useful, ⭐️ the repo or [open an issue](https://github.com/FakharAlyas119/app_version_manager/issues) for feature requests or bugs.
 
