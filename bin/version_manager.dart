@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:app_version_manager/version_manager.dart';
+
 /// Version Manager CLI
 ///
 /// A command-line tool for managing version numbers in Flutter applications.
