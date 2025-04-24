@@ -15,11 +15,10 @@
 
 ## 📦 Installation
 
-### ✅ Option 1: Global Activation (WIP)
+### ✅ Option 1: Global Activation from GitHub
 
 ```bash
-dart pub global activate app_version_manager
-```
+dart pub global activate --source git https://github.com/FakharAlyas119/app_version_manager.git
 
 > Now you can run `version_bump` from anywhere.
 
