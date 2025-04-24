@@ -22,6 +22,14 @@ dart pub global activate --source git https://github.com/FakharAlyas119/app_vers
 
 > Now you can run `version_bump` from anywhere.
 
+Run these commands from your Flutter project directory:
+```bash
+version_bump major
+version_bump minor
+version_bump patch
+version_bump build
+version_bump bump
+```
 ---
 
 ### 🛠️ Option 2: As a Dev Dependency
