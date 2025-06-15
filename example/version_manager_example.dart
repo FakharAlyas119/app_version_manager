@@ -7,11 +7,11 @@ void main() {
 
   // Increment version
   final incrementor = VersionIncrementor();
-  final newVersion = incrementor.incrementPatch(version);
+  final newVersion = incrementor.patchModifier(version);
   print('New version after patch increment: $newVersion');
 
   // Demonstrate other increments
-  print('After major increment: ${incrementor.incrementMajor(version)}');
-  print('After minor increment: ${incrementor.incrementMinor(version)}');
-  print('After build increment: ${incrementor.incrementBuild(version)}');
+  print('After major increment: ${incrementor.majorModifier(version)}');
+  print('After minor increment: ${incrementor.minorModifier(version)}');
+  print('After build increment: ${incrementor.buildModifier(version)}');
 }

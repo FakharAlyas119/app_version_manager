@@ -1,19 +1,19 @@
 import '../interfaces/version_incrementer.dart';
 import '../models/version.dart';
 
-class VersionIncrementor implements IVersionIncrementor {
+class VersionIncrementor implements IVersionModifier {
   @override
-  Version incrementMajor(Version version) {
+  Version majorModifier(Version version) {
     return Version(version.major + 1, 0, 0, version.build + 1);
   }
 
   @override
-  Version incrementMinor(Version version) {
+  Version minorModifier(Version version) {
     return Version(version.major, version.minor + 1, 0, version.build + 1);
   }
 
   @override
-  Version incrementPatch(Version version) {
+  Version patchModifier(Version version) {
     return Version(
       version.major,
       version.minor,
@@ -23,7 +23,7 @@ class VersionIncrementor implements IVersionIncrementor {
   }
 
   @override
-  Version incrementBuild(Version version) {
+  Version buildModifier(Version version) {
     return Version(
       version.major,
       version.minor,
@@ -33,7 +33,7 @@ class VersionIncrementor implements IVersionIncrementor {
   }
 
   @override
-  Version autoIncrement(Version version) {
+  Version autoModifier(Version version) {
     // If build number is less than 99, just increment build
     if (version.build < 99) {
       return Version(

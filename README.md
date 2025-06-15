@@ -20,11 +20,10 @@
 ```bash
 dart pub global activate --source git https://github.com/FakharAlyas119/app_version_manager.git
 
-> Now you can run `version_bump` from anywhere.
 ```
 ---
 
-
+Now you can run `version_bump` from anywhere.
 Run these commands from your Flutter project directory:
 
 ```bash
