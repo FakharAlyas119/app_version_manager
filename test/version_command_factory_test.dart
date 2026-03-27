@@ -1,6 +1,6 @@
 import 'package:app_version_manager/src/services/version_revert.dart';
 import 'package:app_version_manager/src/utils/logger.dart';
-import 'package:app_version_manager/version_manager.dart';
+import 'package:app_version_manager/app_version_manager.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -74,53 +74,53 @@ void main() {
       final majorRevertCommand =
           VersionCommandFactory.create('major revert', reverter);
       logger.debug('Created command: ${majorRevertCommand.commandName}');
-      expect(majorRevertCommand.commandName, equals('major revert'));
+      expect(majorRevertCommand.commandName, equals('major'));
 
       final version = Version.parse('2.3.4+5');
       logger.info('Testing with version: $version');
       final majorResult = majorRevertCommand.execute(version);
       logger.info('After major revert: $majorResult');
-      expect(majorResult.toString(), equals('1.3.4+5'));
+      expect(majorResult.toString(), equals('1.3.4+4'));
 
       // Test minor revert command
       final minorRevertCommand =
           VersionCommandFactory.create('minor revert', reverter);
       logger.debug('Created command: ${minorRevertCommand.commandName}');
-      expect(minorRevertCommand.commandName, equals('minor revert'));
+      expect(minorRevertCommand.commandName, equals('minor'));
 
       final minorResult = minorRevertCommand.execute(version);
       logger.info('After minor revert: $minorResult');
-      expect(minorResult.toString(), equals('2.2.4+5'));
+      expect(minorResult.toString(), equals('2.2.4+4'));
 
       // Test patch revert command
       final patchRevertCommand =
           VersionCommandFactory.create('patch revert', reverter);
       logger.debug('Created command: ${patchRevertCommand.commandName}');
-      expect(patchRevertCommand.commandName, equals('patch revert'));
+      expect(patchRevertCommand.commandName, equals('patch'));
 
       final patchResult = patchRevertCommand.execute(version);
       logger.info('After patch revert: $patchResult');
-      expect(patchResult.toString(), equals('2.3.3+5'));
+      expect(patchResult.toString(), equals('2.3.3+4'));
 
       // Test build revert command
       final buildRevertCommand =
           VersionCommandFactory.create('build revert', reverter);
       logger.debug('Created command: ${buildRevertCommand.commandName}');
-      expect(buildRevertCommand.commandName, equals('build revert'));
+      expect(buildRevertCommand.commandName, equals('build'));
 
       final buildResult = buildRevertCommand.execute(version);
       logger.info('After build revert: $buildResult');
-      expect(buildResult.toString(), equals('2.3.4+4')); // Assuming build > 1
+      expect(buildResult.toString(), equals('2.3.4+4'));
 
       // Test auto revert command
       final autoRevertCommand =
           VersionCommandFactory.create('bump revert', reverter);
       logger.debug('Created command: ${autoRevertCommand.commandName}');
-      expect(autoRevertCommand.commandName, equals('bump revert'));
+      expect(autoRevertCommand.commandName, equals('bump'));
 
       final autoResult = autoRevertCommand.execute(version);
       logger.info('After auto revert: $autoResult');
-      expect(autoResult.toString(), equals('2.3.4+4')); // Assuming build > 1
+      expect(autoResult.toString(), equals('2.3.4+4'));
     });
 
     test('Throws ArgumentError for invalid commands', () {
@@ -156,7 +156,7 @@ void main() {
       logger.info('Testing with version: $version and reverter');
       final revertResult = majorRevertCommand.execute(version);
       logger.info('Result with reverter: $revertResult');
-      expect(revertResult.toString(), equals('0.2.3+4')); // Should revert
+      expect(revertResult.toString(), equals('0.2.3+3')); // Should revert
     });
   });
 }

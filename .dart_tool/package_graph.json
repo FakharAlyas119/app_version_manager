@@ -5,7 +5,7 @@
   "packages": [
     {
       "name": "app_version_manager",
-      "version": "1.0.0+2",
+      "version": "2.0.0",
       "dependencies": [
         "path",
         "yaml",

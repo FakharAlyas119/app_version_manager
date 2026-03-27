@@ -44,22 +44,17 @@ class VersionIncrementor implements IVersionModifier {
       );
     }
 
-    // If patch is less than 99, increment patch and reset build
+    // If patch is less than 99, increment patch and reset build to 1
     if (version.patch < 99) {
-      return Version(
-        version.major,
-        version.minor,
-        version.patch + 1,
-        version.build + 1,
-      );
+      return Version(version.major, version.minor, version.patch + 1, 1);
     }
 
-    // If minor is less than 99, increment minor and reset patch
+    // If minor is less than 99, increment minor and reset patch and build
     if (version.minor < 99) {
-      return Version(version.major, version.minor + 1, 0, version.build + 1);
+      return Version(version.major, version.minor + 1, 0, 1);
     }
 
     // Otherwise increment major and reset everything else
-    return Version(version.major + 1, 0, 0, version.build + 1);
+    return Version(version.major + 1, 0, 0, 1);
   }
 }

@@ -1,7 +1,11 @@
 import '../interfaces/version_interface.dart';
 
 class Version implements IVersion {
-  Version(this.major, this.minor, this.patch, this.build);
+  Version(this.major, this.minor, this.patch, this.build) {
+    if (major < 0 || minor < 0 || patch < 0 || build < 0) {
+      throw ArgumentError('Version numbers must be non-negative');
+    }
+  }
 
   factory Version.parse(String version) {
     if (version.isEmpty) {
@@ -27,12 +31,15 @@ class Version implements IVersion {
     }
 
     try {
-      return Version(
+      final parsed = Version(
         int.parse(versionParts[0]),
         int.parse(versionParts[1]),
         int.parse(versionParts[2]),
         buildNumber,
       );
+      return parsed;
+    } on ArgumentError {
+      rethrow;
     } catch (e) {
       throw FormatException('Version parts must be valid integers');
     }

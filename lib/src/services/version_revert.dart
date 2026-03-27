@@ -1,30 +1,29 @@
-import 'package:app_version_manager/version_manager.dart';
+import 'package:app_version_manager/app_version_manager.dart';
 
 class VersionRevert implements IVersionModifier {
   @override
   Version majorModifier(Version version) {
-    // Decrement major version, but ensure it doesn't go below 0
     final major = version.major > 0 ? version.major - 1 : 0;
-    return Version(major, version.minor, version.patch, version.build);
+    final build = version.build > 1 ? version.build - 1 : 1;
+    return Version(major, version.minor, version.patch, build);
   }
 
   @override
   Version minorModifier(Version version) {
-    // Decrement minor version, but ensure it doesn't go below 0
     final minor = version.minor > 0 ? version.minor - 1 : 0;
-    return Version(version.major, minor, version.patch, version.build);
+    final build = version.build > 1 ? version.build - 1 : 1;
+    return Version(version.major, minor, version.patch, build);
   }
 
   @override
   Version patchModifier(Version version) {
-    // Decrement patch version, but ensure it doesn't go below 0
     final patch = version.patch > 0 ? version.patch - 1 : 0;
-    return Version(version.major, version.minor, patch, version.build);
+    final build = version.build > 1 ? version.build - 1 : 1;
+    return Version(version.major, version.minor, patch, build);
   }
 
   @override
   Version buildModifier(Version version) {
-    // Decrement build version, but ensure it doesn't go below 1
     final build = version.build > 1 ? version.build - 1 : 1;
     return Version(version.major, version.minor, version.patch, build);
   }

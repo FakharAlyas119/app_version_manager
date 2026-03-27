@@ -1,9 +1,10 @@
 name: app_version_manager
-description: A version management tool for Flutter applications
-version: 1.0.0+2
+description: A CLI tool to manage version numbers in Flutter apps. Supports major, minor, patch, build, smart auto-increment, and revert operations on pubspec.yaml.
+version: 2.0.0
+repository: https://github.com/FakharAlyas119/app_version_manager
 
 environment:
-  sdk: ">=2.19.0 <4.0.0"
+  sdk: ">=3.10.0 <4.0.0"
 
 dependencies:
   yaml: ^3.1.2
