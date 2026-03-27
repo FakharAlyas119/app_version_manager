@@ -1,4 +1,4 @@
-import 'package:app_version_manager/version_manager.dart';
+import 'package:app_version_manager/app_version_manager.dart';
 import 'package:test/test.dart';
 
 void main() {

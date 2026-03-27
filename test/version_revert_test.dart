@@ -1,5 +1,5 @@
 import 'package:app_version_manager/src/services/version_revert.dart';
-import 'package:app_version_manager/version_manager.dart';
+import 'package:app_version_manager/app_version_manager.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -23,15 +23,15 @@ void main() {
 
       final majorVersion = reverter.majorModifier(version);
       print('After major revert: $majorVersion');
-      expect(majorVersion.toString(), equals('1.3.4+5'));
+      expect(majorVersion.toString(), equals('1.3.4+4'));
 
       final minorVersion = reverter.minorModifier(version);
       print('After minor revert: $minorVersion');
-      expect(minorVersion.toString(), equals('2.2.4+5'));
+      expect(minorVersion.toString(), equals('2.2.4+4'));
 
       final patchVersion = reverter.patchModifier(version);
       print('After patch revert: $patchVersion');
-      expect(patchVersion.toString(), equals('2.3.3+5'));
+      expect(patchVersion.toString(), equals('2.3.3+4'));
 
       final buildVersion = reverter.buildModifier(version);
       print('After build revert: $buildVersion');
@@ -80,11 +80,11 @@ void main() {
       // Test with large version numbers
       final largeVersion = Version.parse('999.999.999+999');
       expect(reverter.majorModifier(largeVersion).toString(),
-          equals('998.999.999+999'));
+          equals('998.999.999+998'));
       expect(reverter.minorModifier(largeVersion).toString(),
-          equals('999.998.999+999'));
+          equals('999.998.999+998'));
       expect(reverter.patchModifier(largeVersion).toString(),
-          equals('999.999.998+999'));
+          equals('999.999.998+998'));
       expect(reverter.buildModifier(largeVersion).toString(),
           equals('999.999.999+998'));
     });
@@ -97,17 +97,18 @@ void main() {
       // Increment then revert should return to original
       final incremented = incrementor.majorModifier(version);
       final reverted = reverter.majorModifier(incremented);
-      expect(reverted.toString(), equals('1.0.0+5'));
+      expect(reverted.toString(), equals('1.0.0+4'));
 
       // Multiple reverts work correctly
       final doubleRevert = reverter
           .minorModifier(reverter.majorModifier(Version.parse('3.2.1+5')));
-      expect(doubleRevert.toString(), equals('2.1.1+5'));
+      expect(doubleRevert.toString(), equals('2.1.1+3'));
 
       // Mixed operations maintain integrity
+      // version 1.2.3+4 → major revert → 0.2.3+3 → minor increment → 0.3.0+4 → patch revert → 0.3.0+3
       final mixedOps = reverter.patchModifier(
           incrementor.minorModifier(reverter.majorModifier(version)));
-      expect(mixedOps.toString(), equals('0.3.0+5'));
+      expect(mixedOps.toString(), equals('0.3.0+3'));
     });
 
     group('Exception handling tests', () {
@@ -130,6 +131,29 @@ void main() {
         expect(
           () => Version.parse(''),
           throwsA(isA<FormatException>()),
+        );
+      });
+
+      test('Throws ArgumentError for negative version numbers', () {
+        expect(
+          () => Version.parse('-1.2.3+4'),
+          throwsA(isA<ArgumentError>()),
+        );
+        expect(
+          () => Version(-1, 0, 0, 0),
+          throwsA(isA<ArgumentError>()),
+        );
+        expect(
+          () => Version(0, -1, 0, 0),
+          throwsA(isA<ArgumentError>()),
+        );
+        expect(
+          () => Version(0, 0, -1, 0),
+          throwsA(isA<ArgumentError>()),
+        );
+        expect(
+          () => Version(0, 0, 0, -1),
+          throwsA(isA<ArgumentError>()),
         );
       });
 

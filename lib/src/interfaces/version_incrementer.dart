@@ -1,5 +1,5 @@
 import 'package:app_version_manager/src/services/version_revert.dart';
-import 'package:app_version_manager/version_manager.dart';
+import 'package:app_version_manager/app_version_manager.dart';
 
 abstract class IVersionModifier {
   Version majorModifier(Version version);

@@ -50,8 +50,8 @@ class _BuildVersionCommand implements IVersionCommand {
   String get commandName => 'build';
 }
 
-class _AutoIncrementVersionCommand implements IVersionCommand {
-  _AutoIncrementVersionCommand(this._modifier);
+class _AutoVersionCommand implements IVersionCommand {
+  _AutoVersionCommand(this._modifier);
   final IVersionModifier _modifier;
 
   @override
@@ -62,85 +62,28 @@ class _AutoIncrementVersionCommand implements IVersionCommand {
   String get commandName => 'bump';
 }
 
-class _MajorRevertVersionCommand implements IVersionCommand {
-  _MajorRevertVersionCommand(this._modifier);
-  final IVersionModifier _modifier;
-  @override
-  Version execute(Version currentVersion) =>
-      _modifier.majorModifier(currentVersion);
-  @override
-  String get commandName => 'major revert';
-}
-
-class _MinorRevertVersionCommand implements IVersionCommand {
-  _MinorRevertVersionCommand(this._modifier);
-  final IVersionModifier _modifier;
-  @override
-  Version execute(Version currentVersion) =>
-      _modifier.minorModifier(currentVersion);
-  @override
-  String get commandName => 'minor revert';
-}
-
-class _PatchRevertVersionCommand implements IVersionCommand {
-  _PatchRevertVersionCommand(this._modifier);
-  final IVersionModifier _modifier;
-  @override
-  Version execute(Version currentVersion) =>
-      _modifier.patchModifier(currentVersion);
-  @override
-  String get commandName => 'patch revert';
-}
-
-class _BuildRevertVersionCommand implements IVersionCommand {
-  _BuildRevertVersionCommand(this._modifier);
-  final IVersionModifier _modifier;
-  @override
-  Version execute(Version currentVersion) =>
-      _modifier.buildModifier(currentVersion);
-  @override
-  String get commandName => 'build revert';
-}
-
-class _AutoRevertVersionCommand implements IVersionCommand {
-  _AutoRevertVersionCommand(this._modifier);
-  final IVersionModifier _modifier;
-  @override
-  Version execute(Version currentVersion) =>
-      _modifier.autoModifier(currentVersion);
-  @override
-  String get commandName => 'bump revert';
-}
-
 class VersionCommandFactory {
   static IVersionCommand create(
     String command,
-    IVersionModifier _incrementor,
+    IVersionModifier modifier,
   ) {
-    switch (command) {
+    // Normalize: strip "revert" suffix since the modifier already handles the strategy
+    final baseCommand = command.replaceAll('revert', '').trim();
+
+    switch (baseCommand) {
       case 'major':
-        return _MajorVersionCommand(_incrementor);
+        return _MajorVersionCommand(modifier);
       case 'minor':
-        return _MinorVersionCommand(_incrementor);
+        return _MinorVersionCommand(modifier);
       case 'patch':
-        return _PatchVersionCommand(_incrementor);
+        return _PatchVersionCommand(modifier);
       case 'build':
-        return _BuildVersionCommand(_incrementor);
+        return _BuildVersionCommand(modifier);
       case 'bump':
-        return _AutoIncrementVersionCommand(_incrementor);
-      case 'major revert':
-        return _MajorRevertVersionCommand(_incrementor);
-      case 'minor revert':
-        return _MinorRevertVersionCommand(_incrementor);
-      case 'patch revert':
-        return _PatchRevertVersionCommand(_incrementor);
-      case 'build revert':
-        return _BuildRevertVersionCommand(_incrementor);
-      case 'bump revert':
-        return _AutoRevertVersionCommand(_incrementor);
+        return _AutoVersionCommand(modifier);
       default:
         throw ArgumentError(
-          'Invalid command  $command. Use: major, minor, patch, build, or bump',
+          'Invalid command: $command. Use: major, minor, patch, build, bump (append "revert" to undo, e.g. major revert)',
         );
     }
   }
