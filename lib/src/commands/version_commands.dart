@@ -62,7 +62,23 @@ class _AutoVersionCommand implements IVersionCommand {
   String get commandName => 'bump';
 }
 
+/// Factory that creates [IVersionCommand] instances from a command string.
+///
+/// Supports `'major'`, `'minor'`, `'patch'`, `'build'`, and `'bump'` commands.
+/// Revert variants (e.g., `'major revert'`) are also supported — the
+/// `'revert'` suffix is stripped and the [IVersionModifier] strategy
+/// determines whether the command increments or reverts.
+///
+/// ```dart
+/// final modifier = IVersionModifier('patch');
+/// final command = VersionCommandFactory.create('patch', modifier);
+/// final newVersion = command.execute(Version.parse('1.0.0+1'));
+/// print(newVersion); // 1.0.1+2
+/// ```
 class VersionCommandFactory {
+  /// Creates an [IVersionCommand] for the given [command] and [modifier].
+  ///
+  /// Throws [ArgumentError] if [command] is not recognized.
   static IVersionCommand create(
     String command,
     IVersionModifier modifier,

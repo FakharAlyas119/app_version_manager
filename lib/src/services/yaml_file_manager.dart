@@ -7,8 +7,23 @@ import '../interfaces/file_manager.dart';
 import '../interfaces/version_interface.dart';
 import '../models/version.dart';
 
+/// Reads and writes the `version` field in a YAML file (typically `pubspec.yaml`).
+///
+/// Uses [YamlEditor] to preserve the existing file formatting.
+///
+/// ```dart
+/// final manager = YamlFileManager();
+/// final current = manager.getCurrentVersion();
+/// print(current); // 1.0.0+1
+/// manager.updateVersion(Version(1, 0, 1, 2));
+/// ```
 class YamlFileManager implements IFileManager {
+  /// Creates a [YamlFileManager] targeting the given [filePath].
+  ///
+  /// Defaults to `'pubspec.yaml'` in the current working directory.
   YamlFileManager({this.filePath = 'pubspec.yaml'});
+
+  /// The path to the YAML file being managed.
   final String filePath;
 
   @override

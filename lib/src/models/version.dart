@@ -1,12 +1,34 @@
 import '../interfaces/version_interface.dart';
 
+/// Represents a semantic version with a build number.
+///
+/// The format is `MAJOR.MINOR.PATCH+BUILD` (e.g., `1.2.3+4`).
+///
+/// All version segments must be non-negative integers.
+///
+/// ```dart
+/// final version = Version.parse('1.2.3+4');
+/// print(version.major);           // 1
+/// print(version.getStoreVersion()); // 1.2.3
+/// print(version.getBuildNumber());  // 4
+/// ```
 class Version implements IVersion {
+  /// Creates a [Version] with the given [major], [minor], [patch], and [build].
+  ///
+  /// Throws [ArgumentError] if any segment is negative.
   Version(this.major, this.minor, this.patch, this.build) {
     if (major < 0 || minor < 0 || patch < 0 || build < 0) {
       throw ArgumentError('Version numbers must be non-negative');
     }
   }
 
+  /// Parses a version string in the format `MAJOR.MINOR.PATCH` or
+  /// `MAJOR.MINOR.PATCH+BUILD`.
+  ///
+  /// The build number defaults to `0` if not provided.
+  ///
+  /// Throws [FormatException] if the string is empty or malformed.
+  /// Throws [ArgumentError] if any parsed segment is negative.
   factory Version.parse(String version) {
     if (version.isEmpty) {
       throw FormatException('Version string cannot be empty');
@@ -44,6 +66,7 @@ class Version implements IVersion {
       throw FormatException('Version parts must be valid integers');
     }
   }
+
   @override
   final int major;
   @override
